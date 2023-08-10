@@ -9,18 +9,8 @@ h1, h2, h3, p {
     padding: 0;
 }
 
-h1 {
-    font-size: 28px;
-}
-
-h2 {
-    font-size: 23px;
-}
-
-h3 {
-    font-size: 20px;
-}
-
-p {
-    font-size: 16px;
+.form-control:focus, .form-control.is-invalid:focus {
+    outline: none;
+    box-shadow: none;
+    border-color:#495057;
 }

@@ -7,7 +7,9 @@ import { IUser } from '../contracts/contracts';
     providedIn: 'root',
 })
 export class UserService {
-    private userSubject = new BehaviorSubject<IUser | null>(null);
+    private userSubject = new BehaviorSubject<IUser | undefined>({
+        name: 'Boldi',
+    });
     public userObservable = this.userSubject.asObservable();
 
     public get isLoggedin(): Observable<boolean> {
@@ -25,6 +27,6 @@ export class UserService {
     }
 
     public logout(): void {
-        this.userSubject.next(null);
+        this.userSubject.next(undefined);
     }
 }

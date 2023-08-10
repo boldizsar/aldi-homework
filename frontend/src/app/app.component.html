@@ -1,20 +1,29 @@
 <main class="d-flex flex-column min-vh-100">
+    <app-page-loader></app-page-loader>
+
     <header class="bg-primary bg-gradient shadow-sm text-light">
-        <div class="container py-2 px-3">
+        <div class="d-flex container py-2 px-3">
             <h1>Chatting app</h1>
         </div>
     </header>
 
     <div class="container d-flex flex-grow-1 py-4 px-3 justify-content-center">
-        <app-login></app-login>
+        <router-outlet></router-outlet>
     </div>
 
-    <footer class="bg-secondary shadow-sm text-light">
-        <div class="container py-2 px-3">
-            <p>
-                <strong>Created by:</strong> Farkas Boldizsár
-                (boldizsar.farkas@gmail.com)
-            </p>
+    <footer>
+        <div class="d-flex container py-3 px-3 fw-light justify-content-center">
+            <div class="d-flex">
+                <span class="fw-normal pe-4">Created by:</span>
+                <span class="pe-4"
+                    ><i class="bi bi-person"></i> Farkas Boldizsár</span
+                >
+                <span class="pe-4"
+                    ><i class="bi bi-envelope-at"></i>
+                    boldizsar.farkas@gmail.com
+                </span>
+                <span> <i class="bi bi-telephone"></i> +36 70 344 7057 </span>
+            </div>
         </div>
     </footer>
 </main>

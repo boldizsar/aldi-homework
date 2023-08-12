@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/no-autofocus -->
 <div class="d-flex flex-row">
     <app-side-bar class="col-4 col-md-3 col-lg-2"></app-side-bar>
 
@@ -13,69 +14,52 @@
 
             <div class="container d-flex flex-grow-1 py-4 px-5">
                 <div class="d-flex flex-column w-100">
-                    <h3 class="fs-4 text-light-emphasis mb-3">Common Room</h3>
+                    <h3 class="fs-4 text-light-emphasis mb-3">
+                        {{ chatTitle }}
+                    </h3>
 
-                    <div class="message-board flex-grow-1">
-                        <div class="d-flex mb-3">
-                            <i class="bi bi-person-circle fs-3 me-2 mt-3"></i>
-                            <div class="d-flex flex-column">
-                                <span class="message-sender mb-1 fw-light"
-                                    >Kriszace</span
-                                >
-                                <p
-                                    class="message border py-1 px-2 rounded mb-2 shadow-sm"
-                                >
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. In facilisis velit dui, id
-                                    volutpat elit dapibus et. Aenean diam mi,
-                                    blandit ac vestibulum ut, elementum id
-                                    risus.
+                    <div class="message-board flex-grow-1 mb-3" #messageBoard>
+                        <div
+                            class="d-flex"
+                            *ngFor="let message of messages; let i = index"
+                        >
+                            <div *ngIf="message.type === messageType.JOIN">
+                                <p class="message-sender mt-2 fw-light">
+                                    {{ message.sender }} has joined the chat.
                                 </p>
                             </div>
-                        </div>
 
-                        <div class="d-flex mb-3">
-                            <i class="bi bi-person-circle fs-3 me-2 mt-3"></i>
-                            <div class="d-flex flex-column">
-                                <span class="message-sender mb-1 fw-light"
-                                    >Kriszace</span
-                                >
-                                <p
-                                    class="message border py-1 px-2 rounded mb-2 shadow-sm"
-                                >
-                                    Curabitur pulvinar eget tellus tincidunt
-                                    convallis. Nam laoreet magna at rutrum
-                                    fringilla. Aliquam imperdiet elit sem, vel
-                                    hendrerit arcu tincidunt vitae. In vitae
-                                    sollicitudin enim. In vel eros id magna
-                                    volutpat laoreet.
-                                </p>
-
-                                <p
-                                    class="message border py-1 px-2 rounded shadow-sm"
-                                >
-                                    Nam sed eros a est lacinia accumsan ut eu
-                                    diam. Integer vel pellentesque diam, id
-                                    accumsan est.
-                                </p>
+                            <div
+                                class="d-flex align-items-center"
+                                [ngClass]="{
+                                    'mt-2': !isSameSender(i),
+                                    'mt-1': isSameSender(i)
+                                }"
+                                *ngIf="message.type === messageType.MESSAGE"
+                            >
+                                <i
+                                    [ngClass]="{
+                                        invisible: isSameSender(i)
+                                    }"
+                                    class="bi bi-person-circle fs-4 align-self-end me-2"
+                                ></i>
+                                <div class="d-flex flex-column">
+                                    <span
+                                        *ngIf="!isSameSender(i)"
+                                        class="message-sender mb-1 fw-light"
+                                        >{{ message.sender }}</span
+                                    >
+                                    <p
+                                        class="message border py-1 px-2 rounded shadow-sm"
+                                    >
+                                        {{ message.message }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="d-flex mb-3">
-                            <i
-                                class="bi bi-person-circle fs-3 me-2 mt-3 text-primary"
-                            ></i>
-                            <div class="d-flex flex-column">
-                                <span class="message-sender mb-1 fw-light"
-                                    >Boldi</span
-                                >
-                                <p
-                                    class="message border py-1 px-2 rounded mb-2 shadow-sm"
-                                >
-                                    Vestibulum at magna fringilla, volutpat
-                                    risus lacinia, maximus massa. Phasellus
-                                    pretium vulputate tellus ac rhoncus. Proin
-                                    molestie lectus at elit dictum accumsan.
+                            <div *ngIf="message.type === messageType.LEAVE">
+                                <p class="message-sender mt-2 fw-light">
+                                    {{ message.sender }} has left the chat.
                                 </p>
                             </div>
                         </div>
@@ -89,7 +73,8 @@
                                     id="messageBox"
                                     rows="2"
                                     placeholder="Send a message..."
-                                    [(ngModel)]="message"
+                                    autofocus
+                                    [(ngModel)]="chatMessage"
                                     [ngModelOptions]="{ standalone: true }"
                                     #messageTextarea="ngModel"
                                     required

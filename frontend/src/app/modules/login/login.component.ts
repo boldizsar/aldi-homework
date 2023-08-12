@@ -1,33 +1,32 @@
 import { Router } from '@angular/router';
 import { UserService } from './../../services/user.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ROUTE_NAMES } from 'src/app/routing/app-routing.module';
-import { switchMap, takeUntil } from 'rxjs';
-import { UnsubscribeDirective } from 'src/app/directives/unsubscribe.directive';
+import { Subscription, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends UnsubscribeDirective {
+export class LoginComponent implements OnDestroy {
     public username?: string;
     public isLoading = false;
+    private subscription?: Subscription;
 
-    constructor(private userService: UserService, private router: Router) {
-        super();
+    constructor(private userService: UserService, private router: Router) {}
+
+    public ngOnDestroy(): void {
+        this.subscription?.unsubscribe();
     }
 
     public login(): void {
         if (this.username) {
             this.isLoading = true;
 
-            this.userService
+            this.subscription = this.userService
                 .login(this.username)
-                .pipe(
-                    switchMap(() => this.userService.isLoggedin),
-                    takeUntil(this.unsubscribe)
-                )
+                .pipe(switchMap(() => this.userService.isLoggedin))
                 .subscribe((isLoggedIn) => {
                     this.isLoading = false;
                     if (isLoggedIn) {

@@ -4,42 +4,21 @@
 
         <button
             type="button"
-            class="btn btn-dark border-dark-subtle position-relative w-100 mb-2 active"
+            class="btn btn-dark border-dark-subtle position-relative w-100 mb-2"
+            [ngClass]="{ active: selectedChannel === 'public' }"
+            (click)="selectChannel('public')"
         >
-            <i class="bi bi-people-fill me-2"></i><span>Common Room</span>
-            <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            >
-                42
-                <span class="visually-hidden">unread messages</span>
-            </span>
+            <i class="bi bi-person-square me-2"></i><span>Common Room</span>
         </button>
 
         <button
             type="button"
             class="btn btn-dark border-dark-subtle position-relative w-100 mb-2"
+            [ngClass]="{ active: selectedChannel === user.name }"
+            (click)="selectChannel(user.name)"
+            *ngFor="let user of chatUsers"
         >
-            <i class="bi bi-person-square me-2"></i><span>Kriszace</span>
-            <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            >
-                3
-                <span class="visually-hidden">unread messages</span>
-            </span>
-        </button>
-
-        <button
-            type="button"
-            class="btn btn-dark border-dark-subtle position-relative w-100 mb-2"
-        >
-            <i class="bi bi-person-square me-2"></i><span>Locitrom</span>
-        </button>
-
-        <button
-            type="button"
-            class="btn btn-dark border-dark-subtle position-relative w-100 mb-2"
-        >
-            <i class="bi bi-person-square me-2"></i><span>EpicMouse</span>
+            <i class="bi bi-person-square me-2"></i><span>{{ user.name }}</span>
         </button>
     </div>
 

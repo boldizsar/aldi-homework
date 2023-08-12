@@ -23,7 +23,7 @@ public class ChatController {
 
     @MessageMapping("/private-message")
     public ChatMessage receivePrivateMessage(@Payload ChatMessage message) {
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message);
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiver(), "/private", message);
         return message;
     }
 }

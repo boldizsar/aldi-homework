@@ -1,7 +1,10 @@
 export const environment = {
-    production: false,
+    production: true,
     apiUrl: 'http://localhost:8080',
     endpoints: {
-        login: 'login',
+        websocket: 'websocket',
+        message: '/app/message',
+        publicChat: '/chatroom/public',
+        privateChat: '/private/{:id}',
     },
 };

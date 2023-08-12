@@ -1,11 +1,13 @@
 package com.chat.api.chatapi.controller.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ChatMessage {
-    private String senderName;
-    private String receiverName;
+    private String sender;
+    private String receiver;
     private String message;
     private MessageType type;
 }

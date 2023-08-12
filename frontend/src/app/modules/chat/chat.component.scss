@@ -1,12 +1,17 @@
 .chat-area {
     background-color: #282b31;
 
-    .message-sender {
-        font-size: 12px;
-    }
+    .message-board {
+        overflow-y: auto;
+        height: 50vh;
 
-    .message {
-        background-color: #4345524a;
+        .message-sender {
+            font-size: 12px;
+        }
+
+        .message {
+            background-color: #4345524a;
+        }
     }
 
     #messageBox {
